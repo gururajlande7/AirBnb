@@ -85,7 +85,7 @@ CLOUD_API_SECRET=your_api_secret
 Make sure MongoDB is running locally on:
 
 ```text
-mongodb://127.0.0.1:27017/bhurr
+mongodb://127.0.0.1:27017/db_name
 ```
 
 ### 5. Seed the database
