@@ -1,0 +1,9 @@
+<% layout("/layout/boilerplate.ejs") -%>
+
+<div class="page-container">
+  <div class="error-box">
+    <h3><%= err.status || 500 %></h3>
+    <p class="mb-3"><%= err.message || "Something went wrong" %></p>
+    <a class="btn brand-btn" href="/listing">Back to listings</a>
+  </div>
+</div>

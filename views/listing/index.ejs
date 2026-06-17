@@ -1,0 +1,90 @@
+<% layout("/layout/boilerplate.ejs") -%>
+
+<div class="page-container">
+  <div class="explore-bar">
+    <div class="category-strip" aria-label="Listing categories">
+      <button class="category-pill active" type="button" data-filter="">
+        <i class="fa-solid fa-fire"></i>
+        <span>Trending</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="rooms">
+        <i class="fa-solid fa-bed"></i>
+        <span>Rooms</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="city">
+        <i class="fa-solid fa-city"></i>
+        <span>Iconic Cities</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="mountain">
+        <i class="fa-solid fa-mountain-sun"></i>
+        <span>Mountains</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="castle">
+        <i class="fa-brands fa-fort-awesome"></i>
+        <span>Castles</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="pool">
+        <i class="fa-solid fa-person-swimming"></i>
+        <span>Amazing Pools</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="camping">
+        <i class="fa-solid fa-campground"></i>
+        <span>Camping</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="farms">
+        <i class="fa-solid fa-tractor"></i>
+        <span>Farms</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="arctic">
+        <i class="fa-regular fa-snowflake"></i>
+        <span>Arctic</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="domes">
+        <i class="fa-solid fa-igloo"></i>
+        <span>Domes</span>
+      </button>
+      <button class="category-pill" type="button" data-filter="boats">
+        <i class="fa-solid fa-sailboat"></i>
+        <span>Boats</span>
+      </button>
+    </div>
+
+    <label class="tax-toggle">
+      <span>Display total after taxes</span>
+      <input id="taxToggle" type="checkbox">
+      <span class="tax-slider"></span>
+    </label>
+  </div>
+
+  <% if (!listings || listings.length === 0) { %>
+    <div class="empty-state">
+      <h5>No listings yet</h5>
+      <p class="listing-meta mb-0">New places will appear here as soon as they are added.</p>
+    </div>
+  <% } else { %>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-4 listings-grid">
+      <% for (let list of listings) { %>
+        <a href="/listing/<%= list._id %>" class="list-link listing-item" data-search="<%= `${list.title} ${list.location} ${list.country} ${list.description}`.toLowerCase() %>">
+          <div class="card listing-card">
+            <div class="listing-img-wrap">
+              <img src="<%= list.image && list.image.url ? list.image.url : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1200&auto=format&fit=crop' %>" class="card-img-top listing-img" alt="<%= list.title %>">
+              <span class="save-btn" aria-hidden="true"><i class="fa-regular fa-heart"></i></span>
+            </div>
+            <div class="card-body">
+              <div class="listing-line">
+                <span class="listing-title"><%= list.title %></span>
+                <span class="rating"><i class="fa-solid fa-star"></i> 4.<%= Math.floor(Math.random() * 5) + 5 %></span>
+              </div>
+              <p class="listing-meta mb-1"><%= list.location %>, <%= list.country %></p>
+              <p class="card-text mb-0"><span class="price" data-base-price="<%= list.price %>">&#8377;<%= list.price.toLocaleString("en-IN") %></span> <span class="listing-meta">/ night</span></p>
+            </div>
+          </div>
+        </a>
+      <% } %>
+    </div>
+    <div class="empty-state d-none" id="noListingsMatch">
+      <h5>No matches found</h5>
+      <p class="listing-meta mb-0">Try another destination or category.</p>
+    </div>
+  <% } %>
+</div>
